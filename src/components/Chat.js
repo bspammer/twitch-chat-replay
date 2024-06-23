@@ -50,6 +50,18 @@ const Chat: FC<ChatProps> = ({chatMessages, bttvEmotes, resetFunction}) => {
         messagesEndRef.current.scrollIntoView({behavior: "auto"})
     }
 
+    const placeChatOnMobile = () =>{
+        //Makes sure as much as chat can be seen as possible on mobile.
+        const videoContainer = document.querySelector(".player-container");
+        const chatContainer = document.querySelector(".chat-container");
+        let mobileBreakpoint = window.matchMedia("(max-width: 800px)");
+        if(mobileBreakpoint.matches){
+            chatContainer.style.height = `calc(100dvh - ${videoContainer.clientHeight}px)`;
+        }else{
+            chatContainer.style.height = `100dvh`;
+        }
+    }
+
     const formatTimestamp = (content_offset) => {
         const hours = Math.floor(content_offset / 3600) === 0 ? "" : Math.floor(content_offset / 3600) + ":"
         const minutes = Math.floor((content_offset / 60) % 60).toString().padStart(hours ? 2 : 1, "0")
@@ -146,9 +158,10 @@ const Chat: FC<ChatProps> = ({chatMessages, bttvEmotes, resetFunction}) => {
     }
 
     useEffect(scrollToBottom, [chatMessages])
+    useEffect(placeChatOnMobile)
 
     return <>
-        <div className="resetButton" onClick={() => resetFunction()}>X</div>
+        <div className="resetButton" onClick={() =>resetFunction()}>X</div>
         <div>
             {chatMessages.map(message => (
                 <p key={message._id} className="chatMessage">{formatMessage(message)}</p>

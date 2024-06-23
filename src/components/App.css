@@ -49,3 +49,69 @@
     padding-right: 5px;
     border-radius: 5px;
 }
+
+/* Mobile styles */
+
+@media(max-width:800px){
+    .App{
+        min-height: unset;
+        align-items: unset;
+        height: 100dvh;
+        flex-direction: column;
+        position: relative;
+    }
+    
+    .player-container {
+        flex-grow: unset;
+        height: fit-content;
+        max-height: 50vh;
+        z-index: 999;
+    }
+    /* Video is in the iframe but might as well try to target it */
+    .player-container iframe,.player video{
+        object-fit: contain;
+    }
+    
+    .player-container iframe {
+        height: 100%;
+        aspect-ratio: 16/9;
+    }
+    .chat-container {
+        width: 100%;
+        max-width: 100%;
+        /* vh is fallback for old browsers that don't like dvh */
+        height: 48vh;
+        height: 48dvh;
+        margin: auto;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 99;
+        height: 100%;
+    }
+
+    .chat-container:has(.search-form){
+        max-height: 50dvh;
+    }
+
+    .chat-container > div:nth-child(2) {
+        position: absolute;
+        width: 98%;
+        bottom: 10px;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 100%;
+    }
+}
+
+@media(min-width:801px){
+    .App{
+        align-items: unset;
+    }
+    .chat-container{
+        /* Overriding JS cause its simpler than setting up an resize observer */
+        height: 100% !important; 
+    }
+}

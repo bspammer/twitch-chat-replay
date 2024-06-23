@@ -67,3 +67,19 @@
     margin-top: 3px;
     margin-bottom: 3px;
 }
+
+/* Mobile styles */
+@media(max-width:800px){
+    .search-form{
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        width: 100%;
+    }
+    .chat-selector {
+        padding-top: 6rem;
+    }
+    .chat-selection-button:nth-child(1) {
+        margin-top: 20px;
+    }
+}
